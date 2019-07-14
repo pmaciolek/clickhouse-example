@@ -21,7 +21,7 @@ def table_name(with_index):
 
 def create_table(with_index):
     if with_index:
-        index_definition = ', INDEX text_index1 text TYPE ngrambf_v1(3, 2048, 5, 0) GRANULARITY 1024'
+        index_definition = ', INDEX text_index1 text TYPE ngrambf_v1(3, 2048, 3, 0) GRANULARITY 8'
     else:
         index_definition = ''
 
