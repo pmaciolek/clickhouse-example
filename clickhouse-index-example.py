@@ -5,7 +5,7 @@ import random
 import string
 
 db_name = "mydb"
-table_name_base = "test3"
+table_name_base = "test7"
 desired_records = 100000000
 package_size = 10000
 
@@ -21,7 +21,8 @@ def table_name(with_index):
 
 def create_table(with_index):
     if with_index:
-        index_definition = ', INDEX text_index1 text TYPE ngrambf_v1(3, 512, 3, 0) GRANULARITY 64, INDEX text_index2 text TYPE ngrambf_v1(4, 512, 3, 0) GRANULARITY 64'
+#        index_definition = ', INDEX text_index1 text TYPE ngrambf_v1(3, 24576, 8, 0) GRANULARITY 1, INDEX text_index2 text TYPE ngrambf_v1(4, 98304, 5, 0) GRANULARITY 8, INDEX text_index3 text TYPE ngrambf_v1(5, 98304, 5, 0) GRANULARITY 128'
+        index_definition = ', INDEX text_index2 text TYPE ngrambf_v1(4, 131072, 5, 0) GRANULARITY 2, INDEX text_index3 text TYPE ngrambf_v1(5, 4194304, 4, 0) GRANULARITY 64'
     else:
         index_definition = ''
 
@@ -34,7 +35,7 @@ def create_table(with_index):
                ') ENGINE = MergeTree'
                ' PARTITION BY (_date)'
                ' ORDER BY (time_stamp_ms)'
-               ' SETTINGS index_granularity = 64'
+               ' SETTINGS index_granularity = 512'
                .format(db_name, table_name(with_index), index_definition))
                
 def random_sequence(len):
